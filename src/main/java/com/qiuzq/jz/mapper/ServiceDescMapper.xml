@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qiuzq.jz.mapper.ServiceDescMapper" >
+  <resultMap id="BaseResultMap" type="com.qiuzq.jz.model.ServiceDesc" >
+    <constructor >
+      <idArg column="desc_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="service_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="desc_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="desc_text" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="desc_image" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="desc_icon" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    desc_id, service_id, desc_name, desc_text, desc_image, desc_icon, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_service_desc
+    where desc_id = #{descId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_service_desc
+    where desc_id = #{descId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.qiuzq.jz.model.ServiceDesc" >
+    insert into t_service_desc (desc_id, service_id, desc_name, 
+      desc_text, desc_image, desc_icon, 
+      remark)
+    values (#{descId,jdbcType=BIGINT}, #{serviceId,jdbcType=BIGINT}, #{descName,jdbcType=VARCHAR}, 
+      #{descText,jdbcType=VARCHAR}, #{descImage,jdbcType=VARCHAR}, #{descIcon,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qiuzq.jz.model.ServiceDesc" >
+    insert into t_service_desc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="descId != null" >
+        desc_id,
+      </if>
+      <if test="serviceId != null" >
+        service_id,
+      </if>
+      <if test="descName != null" >
+        desc_name,
+      </if>
+      <if test="descText != null" >
+        desc_text,
+      </if>
+      <if test="descImage != null" >
+        desc_image,
+      </if>
+      <if test="descIcon != null" >
+        desc_icon,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="descId != null" >
+        #{descId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=BIGINT},
+      </if>
+      <if test="descName != null" >
+        #{descName,jdbcType=VARCHAR},
+      </if>
+      <if test="descText != null" >
+        #{descText,jdbcType=VARCHAR},
+      </if>
+      <if test="descImage != null" >
+        #{descImage,jdbcType=VARCHAR},
+      </if>
+      <if test="descIcon != null" >
+        #{descIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qiuzq.jz.model.ServiceDesc" >
+    update t_service_desc
+    <set >
+      <if test="serviceId != null" >
+        service_id = #{serviceId,jdbcType=BIGINT},
+      </if>
+      <if test="descName != null" >
+        desc_name = #{descName,jdbcType=VARCHAR},
+      </if>
+      <if test="descText != null" >
+        desc_text = #{descText,jdbcType=VARCHAR},
+      </if>
+      <if test="descImage != null" >
+        desc_image = #{descImage,jdbcType=VARCHAR},
+      </if>
+      <if test="descIcon != null" >
+        desc_icon = #{descIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where desc_id = #{descId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qiuzq.jz.model.ServiceDesc" >
+    update t_service_desc
+    set service_id = #{serviceId,jdbcType=BIGINT},
+      desc_name = #{descName,jdbcType=VARCHAR},
+      desc_text = #{descText,jdbcType=VARCHAR},
+      desc_image = #{descImage,jdbcType=VARCHAR},
+      desc_icon = #{descIcon,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where desc_id = #{descId,jdbcType=BIGINT}
+  </update>
+</mapper>

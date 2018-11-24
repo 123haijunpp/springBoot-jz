@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qiuzq.jz.mapper.ServiceMapper">
+    <resultMap id="BaseResultMap" type="com.qiuzq.jz.model.Service">
+        <constructor>
+            <idArg column="service_id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+            <arg column="service_name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="service_icon" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="service_banner" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="position" jdbcType="BIGINT" javaType="java.lang.Long"/>
+            <arg column="state" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="isvoid" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+        </constructor>
+    </resultMap>
+    <resultMap id="ServiceResultMap" type="com.qiuzq.jz.model.Service">
+        <id column="service_id" property="serviceId" jdbcType="BIGINT" javaType="java.lang.Long"/>
+        <result column="service_name" property="serviceName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="service_icon" property="serviceIcon" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="service_banner" property="serviceBanner" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="position" property="position" jdbcType="BIGINT" javaType="java.lang.Long"/>
+        <result column="state" property="state" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="isvoid" property="isvoid" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    service_id, service_name, service_icon, service_banner, position, state, remark, 
+    isvoid
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from t_service
+        where service_id = #{serviceId,jdbcType=BIGINT}
+    </select>
+    <select id="list" resultMap="ServiceResultMap"
+            parameterType="com.qiuzq.jz.model.Service">
+        select * from t_service where 1 =1
+        <if test="serviceName != null and serviceName != ''">
+            and service_name like concat(concat('%',#{serviceName}),'%')
+        </if>
+        <if test="state!=null and state!=-1">
+            and state = #{state}
+        </if>
+        order by position asc
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_service
+    where service_id = #{serviceId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.qiuzq.jz.model.Service">
+    insert into t_service (service_name, service_icon,
+      service_banner, position, state, 
+      remark, isvoid)
+    values (#{serviceName,jdbcType=VARCHAR}, #{serviceIcon,jdbcType=VARCHAR},
+      #{serviceBanner,jdbcType=VARCHAR}, #{position,jdbcType=BIGINT}, #{state,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{isvoid,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.qiuzq.jz.model.Service">
+        insert into t_service
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="serviceId != null">
+                service_id,
+            </if>
+            <if test="serviceName != null">
+                service_name,
+            </if>
+            <if test="serviceIcon != null">
+                service_icon,
+            </if>
+            <if test="serviceBanner != null">
+                service_banner,
+            </if>
+            <if test="position != null">
+                position,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="isvoid != null">
+                isvoid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="serviceId != null">
+                #{serviceId,jdbcType=BIGINT},
+            </if>
+            <if test="serviceName != null">
+                #{serviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceIcon != null">
+                #{serviceIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceBanner != null">
+                #{serviceBanner,jdbcType=VARCHAR},
+            </if>
+            <if test="position != null">
+                #{position,jdbcType=BIGINT},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="isvoid != null">
+                #{isvoid,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.qiuzq.jz.model.Service">
+        update t_service
+        <set>
+            <if test="serviceName != null">
+                service_name = #{serviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceIcon != null">
+                service_icon = #{serviceIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceBanner != null">
+                service_banner = #{serviceBanner,jdbcType=VARCHAR},
+            </if>
+            <if test="position != null">
+                position = #{position,jdbcType=BIGINT},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="isvoid != null">
+                isvoid = #{isvoid,jdbcType=INTEGER},
+            </if>
+        </set>
+        where service_id = #{serviceId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.qiuzq.jz.model.Service">
+    update t_service
+    set service_name = #{serviceName,jdbcType=VARCHAR},
+      service_icon = #{serviceIcon,jdbcType=VARCHAR},
+      service_banner = #{serviceBanner,jdbcType=VARCHAR},
+      position = #{position,jdbcType=BIGINT},
+      state = #{state,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      isvoid = #{isvoid,jdbcType=INTEGER}
+    where service_id = #{serviceId,jdbcType=BIGINT}
+  </update>
+    <update id="updateStateByPrimaryKey" parameterType="com.qiuzq.jz.model.Service">
+        update t_service
+        <set>
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+        </set>
+        where service_id = #{serviceId,jdbcType=BIGINT}
+    </update>
+</mapper>

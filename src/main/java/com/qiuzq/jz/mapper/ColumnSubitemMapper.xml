@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qiuzq.jz.mapper.ColumnSubitemMapper" >
+  <resultMap id="BaseResultMap" type="com.qiuzq.jz.model.ColumnSubitem" >
+    <constructor >
+      <idArg column="csid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="column_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="subitem_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    csid, column_id, subitem_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_column_subitem
+    where csid = #{csid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_column_subitem
+    where csid = #{csid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.qiuzq.jz.model.ColumnSubitem" >
+    insert into t_column_subitem (csid, column_id, subitem_id
+      )
+    values (#{csid,jdbcType=BIGINT}, #{columnId,jdbcType=BIGINT}, #{subitemId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qiuzq.jz.model.ColumnSubitem" >
+    insert into t_column_subitem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="csid != null" >
+        csid,
+      </if>
+      <if test="columnId != null" >
+        column_id,
+      </if>
+      <if test="subitemId != null" >
+        subitem_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="csid != null" >
+        #{csid,jdbcType=BIGINT},
+      </if>
+      <if test="columnId != null" >
+        #{columnId,jdbcType=BIGINT},
+      </if>
+      <if test="subitemId != null" >
+        #{subitemId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qiuzq.jz.model.ColumnSubitem" >
+    update t_column_subitem
+    <set >
+      <if test="columnId != null" >
+        column_id = #{columnId,jdbcType=BIGINT},
+      </if>
+      <if test="subitemId != null" >
+        subitem_id = #{subitemId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where csid = #{csid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qiuzq.jz.model.ColumnSubitem" >
+    update t_column_subitem
+    set column_id = #{columnId,jdbcType=BIGINT},
+      subitem_id = #{subitemId,jdbcType=BIGINT}
+    where csid = #{csid,jdbcType=BIGINT}
+  </update>
+</mapper>

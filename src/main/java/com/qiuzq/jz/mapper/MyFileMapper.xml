@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qiuzq.jz.mapper.MyFileMapper" >
+  <resultMap id="BaseResultMap" type="com.qiuzq.jz.model.MyFile" >
+    <constructor >
+      <idArg column="file_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="file_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="content_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="upload_user_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="upload_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    file_id, file_name, content_type, upload_user_id, upload_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_file
+    where file_id = #{fileId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_file
+    where file_id = #{fileId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.qiuzq.jz.model.MyFile" >
+    insert into t_file (file_id, file_name, content_type, 
+      upload_user_id, upload_time)
+    values (#{fileId,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{contentType,jdbcType=VARCHAR}, 
+      #{uploadUserId,jdbcType=BIGINT}, #{uploadTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qiuzq.jz.model.MyFile" >
+    insert into t_file
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        file_id,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="contentType != null" >
+        content_type,
+      </if>
+      <if test="uploadUserId != null" >
+        upload_user_id,
+      </if>
+      <if test="uploadTime != null" >
+        upload_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        #{fileId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="contentType != null" >
+        #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadUserId != null" >
+        #{uploadUserId,jdbcType=BIGINT},
+      </if>
+      <if test="uploadTime != null" >
+        #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qiuzq.jz.model.MyFile" >
+    update t_file
+    <set >
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="contentType != null" >
+        content_type = #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadUserId != null" >
+        upload_user_id = #{uploadUserId,jdbcType=BIGINT},
+      </if>
+      <if test="uploadTime != null" >
+        upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where file_id = #{fileId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qiuzq.jz.model.MyFile" >
+    update t_file
+    set file_name = #{fileName,jdbcType=VARCHAR},
+      content_type = #{contentType,jdbcType=VARCHAR},
+      upload_user_id = #{uploadUserId,jdbcType=BIGINT},
+      upload_time = #{uploadTime,jdbcType=TIMESTAMP}
+    where file_id = #{fileId,jdbcType=VARCHAR}
+  </update>
+</mapper>
