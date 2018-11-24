@@ -29,6 +29,6 @@ public class Test {
         }, "ftf");
         t.start();
         t.join();
-        // 为什么代码没有同步
+        // 为什么代码没有同步 99
     }
 }
