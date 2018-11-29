@@ -67,7 +67,7 @@ public class ServiceController {
         pageBean.setRequest(request);
         List<Service> services = servicesService.list(service, pageBean);
         List<Service> se = new ArrayList<>(16);
-        Service service1 = null;
+        Service service1;
         for (Service s : services) {
             service1 = new Service();
             if (s.getState() == 1) {
