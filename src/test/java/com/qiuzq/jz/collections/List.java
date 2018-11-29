@@ -44,7 +44,7 @@ public class List {
         ll.add("2");
         ll.add("3");
         ll.add("4");
-        ll.addFirst("追加到头部");
+        ll.addFirst("追加到头部1");
         ll.addLast("追加到尾部");
         ll.forEach(String -> System.out.println(String));
     }
